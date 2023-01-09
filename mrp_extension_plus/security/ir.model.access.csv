@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_consume_production_distribution_manager,mrp.consume.production.distribution,model_consume_production_distribution,mrp.group_mrp_manager,1,1,1,1
+access_consume_production_distribution,mrp.consume.production.distribution.user,model_consume_production_distribution,mrp.group_mrp_user,1,0,0,0
+
+access_consume_production_distribution_two_manager,mrp.consume.production.distribution.two,model_consume_production_distribution_two,mrp.group_mrp_manager,1,1,1,1
+access_consume_production_distribution_two,mrp.consume.production.distribution.two.user,model_consume_production_distribution_two,mrp.group_mrp_user,1,0,0,0
+
+access_stock_move_line_wizard_user,stock.stock.move.line.wizard.user,model_stock_move_line_wizard,stock.group_stock_user,1,0,0,0
+access_stock_move_line_wizard_manager,stock.stock.move.line.wizard.manager,model_stock_move_line_wizard,stock.group_stock_manager,1,1,1,1
+

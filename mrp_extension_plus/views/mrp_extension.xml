@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+	<!-- INventery:Product Move:Tree , Form View -->
+		<record id="stock_view_move_line_tree_inherited" model="ir.ui.view">
+			<field name="name">stock.move.line.tree.inherited</field>
+			<field name="model">stock.move.line</field>
+			<field name="inherit_id" ref="stock.view_move_line_tree" />
+			<field name="arch" type="xml">
+				
+				 <xpath expr="//field[@name='date']" position="before">
+				 	<header>
+						<button name="%(mrp_extension.action_stock_move_line_wizard_view)d" type="action" string="Calculate Weight"  class="btn-primary"/>
+					</header>
+				</xpath>
+				 <xpath expr="//field[@name='location_dest_id']" position="after">
+				 	<field name="weight"/>
+				</xpath>
+
+			</field>
+		</record>
+		<record id="stock_view_move_line_form_inherited" model="ir.ui.view">
+			<field name="name">stock.move.line.form.inherited</field>
+			<field name="model">stock.move.line</field>
+			<field name="inherit_id" ref="stock.view_move_line_form" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='location_dest_id']" position="after">
+				 	<field name="weight"/>
+					<field name="length" invisible='1'/>
+					<field name="width"  invisible='1'/>
+				</xpath>
+
+			</field>
+		</record>
+		<!--Stock assign serial number  -->
+		
+
+
+	<!--MRP Production: Form, Tree view  -->
+		<record id="mrp_production_form_view_inherited" model="ir.ui.view">
+			<field name="name">mrp.production.form.view.inherited</field>
+			<field name="model">mrp.production</field>
+			<field name="inherit_id" ref="mrp.mrp_production_form_view" />
+			<field name="arch" type="xml">
+
+				 <xpath expr="//field[@name='product_id']" position="after">
+					<field name="length" invisible="1" />
+					<field name="width" invisible="1"/>
+					
+				</xpath>
+
+				 <xpath expr="//field[@name='user_id']" position="after">
+					<field name="reel"/>
+					<field name="half_reel"/>
+					<field name="check_automation"  attrs="{'invisible': [('state', '!=', 'done')]}"/>
+					
+				</xpath>
+				<xpath expr="//page[@name='miscellaneous']" position="inside">
+					<group string='Report 1'>
+						<group>
+							<field name='item_code' readonly="True" force_save="1"/>
+							<field name='vendor' readonly="True" force_save="1"/>
+						</group>
+						<group>
+							<field name='mfg_date' readonly="True" force_save="1"/>
+							<field name='mfg_ref' readonly="True" force_save="1"/>
+						</group>
+					</group>
+					<group string='Report 2'>
+						<group>
+							<field name='top_record' readonly="True" force_save="1"/>
+							<field name='supplier_batch' readonly="True" force_save="1"/>
+						</group>
+						<group>
+							<field name='material_serial' readonly="True" force_save="1"/>
+							<field name='production_date' readonly="True" force_save="1"/>
+						</group>
+					</group>
+				</xpath>
+
+			</field>
+		</record>
+
+		<record id="mrp_production_tree_view_inherited" model="ir.ui.view">
+			<field name="name">mrp.production.tree.view.inherited</field>
+			<field name="model">mrp.production</field>
+			<field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+			<field name="arch" type="xml">
+				<button name="do_unreserve" position="before">
+					<button name="action_consume_product_distribution_wizard" type="object" string="Chnage Comsumption"  class="btn-primary"/>
+
+				</button>
+
+			</field>
+		</record>
+		
+
+		<!-- Worker Oder: Tree, Graph-->
+
+		<!-- <record id="mrp_workorder_form_view_inherit" model="ir.ui.view">
+			<field name="name">mrp.work.order.form.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='production_id']" position="after">
+					<field name="duration_bobbins" type="measure" string="Duration (minutes)-bobbins"/>
+				</xpath>
+				
+			</field>
+		</record> -->
+
+
+		<record id="mrp_production_workorder_tree_view_inherited" model="ir.ui.view">
+			<field name="name">mrp.workorder.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view" />
+			<field name="arch" type="xml">
+				<xpath expr="//tree" position="inside">
+					<header>
+						<button name="button_start_all" type="object" string="Start All" class="btn-primary"/>
+						<button name="end_all" type="object" string="End All" class="btn-primary" />
+						<button name="done_all" type="object" string="Done All" class="btn-primary"/>
+					</header>
+				</xpath>
+				
+			</field>
+		</record>
+		
+		<!-- <record id="workcenter_line_graph_inherited" model="ir.ui.view">
+			<field name="name">mrp.production.work.order.graph.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.workcenter_line_graph" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins" type="measure" string="Duration (minutes)-bobbins" widget="float_time"/>
+				</xpath>
+				<xpath expr="//field[@name='duration_expected']" position="after">
+					<field name="duration_expected_bobbins" type="measure" widget="float_time"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		<!-- <record id="workcenter_line_pivot_inherited" model="ir.ui.view">
+			<field name="name">work.order.pivot.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.workcenter_line_pivot" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins" type="measure" string="Duration (minutes)-bobbins"/>
+				</xpath>
+				<xpath expr="//field[@name='duration_expected']" position="after">
+					<field name="duration_expected_bobbins" type="measure"/>
+				</xpath>
+			</field>
+		</record> -->
+		<!-- <record id="view_workcenter_load_pivot_inherited" model="ir.ui.view">
+			<field name="name">workcenter.load.pivot.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.view_workcenter_load_pivot" />
+			<field name="arch" type="xml">
+				 
+				<xpath expr="//field[@name='duration_expected']" position="after">
+					<field name="duration_expected_bobbins" type="measure" string="Expected Duration (minutes)"/>
+				</xpath>
+			</field>
+		</record> -->
+		<!-- <record id="view_work_center_load_graph_inherited" model="ir.ui.view">
+			<field name="name">workcenter.load.graph.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.view_work_center_load_graph" />
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='duration_expected']" position="after">
+					<field name="duration_expected_bobbins" type="measure" string="Expected Duration (minutes)"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		<!-- Workcenter Productivity: Pie, Graph and Pivot -->
+
+		<!-- <record id="oee_form_view_bobbins_inherited" model="ir.ui.view">
+			<field name="name">mrp.workcenter.productivity.form.bobbins.inherited</field>
+			<field name="model">mrp.workcenter.productivity</field>
+			<field name="inherit_id" ref="mrp.oee_form_view" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins"/>
+				</xpath>
+			</field>
+		</record> -->
+
+
+		<!-- <record id="oee_pie_view_bobbins_inherited" model="ir.ui.view">
+			<field name="name">mrp.workcenter.productivity.pie.bobbins.inherited</field>
+			<field name="model">mrp.workcenter.productivity</field>
+			<field name="inherit_id" ref="mrp.oee_pie_view" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins" type="measure"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		<!-- <record id="oee_graph_view_bobbins_inherited" model="ir.ui.view">
+			<field name="name">mrp.workcenter.productivity.graph.bobbins.inherited</field>
+			<field name="model">mrp.workcenter.productivity</field>
+			<field name="inherit_id" ref="mrp.oee_graph_view" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins" type="measure"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		<!-- <record id="oee_pivot_view_bobbins_inherited" model="ir.ui.view">
+			<field name="name">mrp.workcenter.productivity.pivot.bobbins.inherited</field>
+			<field name="model">mrp.workcenter.productivity</field>
+			<field name="inherit_id" ref="mrp.oee_pivot_view" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration']" position="after">
+					<field name="duration_bobbins" type="measure"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		
+
+		
+
+		
+
+
+		<!-- <record id="mrp_production_workorder_form_view_bobbins_inherited" model="ir.ui.view">
+			<field name="name">mrp.production.work.order.form.bobbins.inherited</field>
+			<field name="model">mrp.workorder</field>
+			<field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+			<field name="arch" type="xml">
+				 <xpath expr="//field[@name='duration_expected']" position="after">
+					<field name="duration_bobbins" string="Duration (minutes)-bobbins"/>
+				</xpath>
+			</field>
+		</record> -->
+
+		
+
+	</data>
+</odoo>

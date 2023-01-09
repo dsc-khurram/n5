@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="consume_product_distribution_wizard" model="ir.ui.view">
+        <field name="name">mrp.consume.production.distribution</field>
+        <field name="model">consume.production.distribution</field>
+        <field name="arch" type="xml">
+            <form string="Serial Mass Produce">
+               <header>
+                    <button name="overwrite_record" type="object" string="Overwrite Record"  class="btn-primary"/>
+
+               </header>
+                <group>
+                    <field name= "production_id" widget="many2many_tags"/>
+                    
+                </group>
+                <group>
+                    <group>
+                        <field name='overwrite_half'/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+                <field name="prod_consumption">
+                    <tree editable='bottom'>
+                        <field name='product_id' options="{'no_create': True}"/>
+                        <field name= "lot_id"/>
+                        <field name='qty' />
+                        <field name='cost_boolean' invisible='1'/>
+                        <field name='cost_share' attrs="{'invisible': [('cost_boolean', '=', False)]}" />
+                        <field name='qty_measure' />
+                        <field name= "production_id" widget="many2many_tags" invisible="1"/>
+                        <field name= "production_id_temp" widget="many2many_tags" invisible="1"/>
+                    </tree>
+
+                </field>
+                <footer>
+                    <button name="apply" string="Apply" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- <record id="act_consume_product_distribution_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Serial Numbers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consume.production.distribution</field>
+        <field name="view_id" ref="consume_product_distribution_wizard"/>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_production_id': active_ids}</field>
+        <field name="target">new</field>
+
+    </record> -->
+    <record id="act_consume_product_distribution_wizard" model="ir.actions.act_window">
+        <field name="name">Assign Serial Numbers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">consume.production.distribution</field>
+        <field name="view_id" ref="consume_product_distribution_wizard"/>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="target">new</field>
+
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<template xml:space="preserve">
+    <t t-extend="ListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <button t-if="widget.modelName == 'hr.employee'" class="btn btn-primary btn-sm o_list_button_confirm_employee_profile" type="button" accesskey="s">Update Status</button>
+        </t>
+    </t>
+</template>
